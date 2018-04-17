@@ -69,9 +69,9 @@ if (!process.env.MONITORING_SERVER_URL &&
     process.env.MONITORING_SERVER_URL = configObj.MONITORING_SERVER_URL;
 }
 
-if (!process.env.MONITORING_APPLICATION_NAME &&
-    configObj && configObj.MONITORING_APPLICATION_NAME) {
-    process.env.MONITORING_APPLICATION_NAME = configObj.MONITORING_APPLICATION_NAME;
+if (!process.env.APPLICATION_NAME &&
+    configObj && configObj.APPLICATION_NAME) {
+    process.env.APPLICATION_NAME = configObj.APPLICATION_NAME;
 }
 if (!process.env.MONITORING_SECURITY_URL &&
     configObj && configObj.MONITORING_SECURITY_URL) {
