@@ -3,7 +3,6 @@
 // Node module: ibmapm
 // This file is licensed under the Apache License 2.0.
 // License text available at https://opensource.org/licenses/Apache-2.0
-const util = require('util');
 
 var log4js = require('log4js');
 var properties = require('properties');
@@ -214,16 +213,4 @@ function startDC() {
 exports.stopDC = function() {
     appmetrics.stop();
     require('./lib/metric-manager').metricManager.stop();
-};
-
-exports.attach = function(options) {
-
-    // Protect our options from modification.
-    options = util._extend({}, options);
-    // if the user hasn't supplied appmetrics, require here.
-    if (!options.appmetrics) {
-        options.appmetrics = require('appmetrics');
-    }
-    appmetrics = options.appmetrics;
-    return exports;
 };
