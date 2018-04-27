@@ -34,7 +34,7 @@ if (loglevel &&
     logger.info('KNJ_LOG_LEVEL is set to', loglevel);
 } else {
     logger.setLevel('INFO');
-    logger.info('KNJ_LOG_LEVEL is not set or not set correctly through environment variables.');
+    // logger.info('KNJ_LOG_LEVEL is not set or not set correctly through environment variables.');
     logger.info('The program set default log level to INFO.');
 }
 var commontools = require('./lib/tool/common');
@@ -42,7 +42,7 @@ var commontools = require('./lib/tool/common');
 //    initialize log end
 // Sometimes we need to change the name of some environment variables to consistant all of DC.
 commontools.envDecrator();
-
+global.DC_VERSION = getDCVersion();
 //    initialize different code path - BI/BAM/Agent
 var configObj;
 if (!process.env.MONITORING_SERVER_TYPE) {
@@ -58,7 +58,6 @@ if (!process.env.MONITORING_SERVER_TYPE) {
     } catch (e) {
         logger.error('Failed to read etc/config.properties');
         logger.error('Use default MONITORING_SERVER_TYPE: BAM');
-        logger.info(e);
         process.env.MONITORING_SERVER_TYPE = 'BAM';
     }
 }
@@ -136,7 +135,6 @@ if (process.env.MONITORING_SERVER_TYPE === 'BAM') {
     } catch (e) {
         logger.error('Failed to read etc/bam.properties.');
         logger.error('Use default BAM configuration.');
-        logger.info(e);
     }
 
     if (bamConfObj) {
@@ -213,4 +211,12 @@ function startDC() {
 exports.stopDC = function() {
     appmetrics.stop();
     require('./lib/metric-manager').metricManager.stop();
+};
+
+function getDCVersion() {
+    var packageJson = require(path.join(__dirname, 'package.json'));
+    if (packageJson && packageJson.version) {
+        return packageJson.version;
+    }
+    return '1.0.0';
 };
