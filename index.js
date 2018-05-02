@@ -3,7 +3,6 @@
 // Node module: ibmapm
 // This file is licensed under the Apache License 2.0.
 // License text available at https://opensource.org/licenses/Apache-2.0
-const util = require('util');
 
 var log4js = require('log4js');
 var properties = require('properties');
@@ -35,7 +34,7 @@ if (loglevel &&
     logger.info('KNJ_LOG_LEVEL is set to', loglevel);
 } else {
     logger.setLevel('INFO');
-    logger.info('KNJ_LOG_LEVEL is not set or not set correctly through environment variables.');
+    // logger.info('KNJ_LOG_LEVEL is not set or not set correctly through environment variables.');
     logger.info('The program set default log level to INFO.');
 }
 var commontools = require('./lib/tool/common');
@@ -43,7 +42,7 @@ var commontools = require('./lib/tool/common');
 //    initialize log end
 // Sometimes we need to change the name of some environment variables to consistant all of DC.
 commontools.envDecrator();
-
+global.DC_VERSION = getDCVersion();
 //    initialize different code path - BI/BAM/Agent
 var configObj;
 if (!process.env.MONITORING_SERVER_TYPE) {
@@ -59,7 +58,6 @@ if (!process.env.MONITORING_SERVER_TYPE) {
     } catch (e) {
         logger.error('Failed to read etc/config.properties');
         logger.error('Use default MONITORING_SERVER_TYPE: BAM');
-        logger.info(e);
         process.env.MONITORING_SERVER_TYPE = 'BAM';
     }
 }
@@ -69,9 +67,9 @@ if (!process.env.MONITORING_SERVER_URL &&
     process.env.MONITORING_SERVER_URL = configObj.MONITORING_SERVER_URL;
 }
 
-if (!process.env.MONITORING_APPLICATION_NAME &&
-    configObj && configObj.MONITORING_APPLICATION_NAME) {
-    process.env.MONITORING_APPLICATION_NAME = configObj.MONITORING_APPLICATION_NAME;
+if (!process.env.APPLICATION_NAME &&
+    configObj && configObj.APPLICATION_NAME) {
+    process.env.APPLICATION_NAME = configObj.APPLICATION_NAME;
 }
 if (!process.env.MONITORING_SECURITY_URL &&
     configObj && configObj.MONITORING_SECURITY_URL) {
@@ -137,7 +135,6 @@ if (process.env.MONITORING_SERVER_TYPE === 'BAM') {
     } catch (e) {
         logger.error('Failed to read etc/bam.properties.');
         logger.error('Use default BAM configuration.');
-        logger.info(e);
     }
 
     if (bamConfObj) {
@@ -216,14 +213,10 @@ exports.stopDC = function() {
     require('./lib/metric-manager').metricManager.stop();
 };
 
-exports.attach = function(options) {
-
-    // Protect our options from modification.
-    options = util._extend({}, options);
-    // if the user hasn't supplied appmetrics, require here.
-    if (!options.appmetrics) {
-        options.appmetrics = require('appmetrics');
+function getDCVersion() {
+    var packageJson = require(path.join(__dirname, 'package.json'));
+    if (packageJson && packageJson.version) {
+        return packageJson.version;
     }
-    appmetrics = options.appmetrics;
-    return exports;
+    return '1.0.0';
 };
