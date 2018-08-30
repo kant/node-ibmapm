@@ -24,10 +24,10 @@ process.env.IBM_APM_SERVER_URL =
 process.env.MONITORING_SERVER_TYPE = 'BI';
 
 var dc = require('../index');
-var bamplugin = require('../lib/ibm_apm_restclient/lib/plugins/BAMPlugin');
-var biplugin = require('../lib/ibm_apm_restclient/lib/plugins/BIPlugin');
-var sendqueue = require('../lib/ibm_apm_restclient/lib/restclient/sender-queue');
-var icpcontr = require('../lib/ibm_apm_restclient/lib/tools/icpcontroller');
+var bamplugin = require('../node_modules/ibmapm-restclient/lib/plugins/BAMPlugin');
+var biplugin = require('../node_modules/ibmapm-restclient/lib/plugins/BIPlugin');
+var sendqueue = require('../node_modules/ibmapm-restclient/lib/restclient/sender-queue');
+var icpcontr = require('../node_modules/ibmapm-restclient/lib/tools/icpcontroller');
 
 function endUT() {
     // process.exit(0);

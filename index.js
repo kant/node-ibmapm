@@ -3,17 +3,17 @@
 // Node module: ibmapm
 // This file is licensed under the Apache License 2.0.
 // License text available at https://opensource.org/licenses/Apache-2.0
-
-var log4js = require('log4js');
-var properties = require('properties');
-var fs = require('fs');
-var path = require('path');
 if (!global.NodeDCLoaded) {
     // The Node.js DC is not required.
     global.NodeDCLoaded = true;
 } else {
     return;
 }
+var log4js = require('log4js');
+var properties = require('properties');
+var fs = require('fs');
+var path = require('path');
+
 var appmetrics = global.Appmetrics || require('appmetrics');
 // var configsvc = require('./lib/tool/configureservice').ConfigureService;
 
@@ -56,8 +56,8 @@ if (!process.env.MONITORING_SERVER_TYPE) {
         });
         process.env.MONITORING_SERVER_TYPE = configObj.MONITORING_SERVER_TYPE;
     } catch (e) {
-        logger.error('Failed to read etc/config.properties');
-        logger.error('Use default MONITORING_SERVER_TYPE: BAM');
+        logger.warn('Failed to read etc/config.properties');
+        logger.warn('Use default MONITORING_SERVER_TYPE: BAM');
         process.env.MONITORING_SERVER_TYPE = 'BAM';
     }
 }
@@ -133,8 +133,8 @@ if (process.env.MONITORING_SERVER_TYPE === 'BAM') {
             comments: [';', '@', '#']
         });
     } catch (e) {
-        logger.error('Failed to read etc/bam.properties.');
-        logger.error('Use default BAM configuration.');
+        logger.warn('Failed to read etc/bam.properties.');
+        logger.warn('Use default BAM configuration.');
     }
 
     if (bamConfObj) {
@@ -189,7 +189,7 @@ if (process.env.ITCAM_DC_ENABLED && process.env.ITCAM_DC_ENABLED.toLowerCase() =
 commontools.enableTrace(appmetrics);
 
 // Start DC in case rest client is ready to send payload
-var restClient = require('./lib/ibm_apm_restclient/lib/restclient/httpsender.js');
+var restClient = require('ibmapm-restclient');
 restClient.checkReadyStatus(startDC);
 
 var DCStarted = false;

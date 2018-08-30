@@ -1,19 +1,15 @@
 {
     "name": "ibmapm",
     "main": "./index.js",
-    "version": "2.0.9",
+    "version": "2.0.19",
     "readme": "Node.js Data Collector",
     "description": "Node.js data collector for IBM BAM",
     "dependencies": {
-        "agent-base": "^2",
         "appmetrics": "^3.0.1",
-        "debug": "^2",
-        "extend": "^3",
-        "kubernetes-client": "^3.16.0",
         "log4js": "^0.6.38",
         "properties": "^1.2.1",
-        "request": "^2.72.0",
-        "uuid": "^2.0.2"
+        "uuid": "^2.0.2",
+        "ibmapm-restclient": "^1.0.0"
     },
     "devDependencies": {
         "chai": "^3.5.0",
