@@ -19,7 +19,7 @@ Sample configuration file (The default config.json at the running path is used):
 
 4.(Optional) Configure **Environment Variables** by editing the `manifest.yml` file (for Bluemix) or by using the `export` command (for local test).  
 
-If your application will be pushed to Bluemix, add the following lines in the manifest.yml file to set the required environment variable:
+If your application will be pushed to Bluemix, add the following lines in the `manifest.yml` file to set the required environment variable:
 ```
 env:
   - KNJ_CONFIG_FILE: config.json
@@ -40,8 +40,8 @@ export KNJ_RESTCLIENT_MAX_RETRY=2
 |:---------------------------------|:--------------------------------------|:--------------|:-------------------------------------------------------|
 |KNJ_CONFIG_FILE (optional)        |"config.json", "test-config.json"      |"config.json"  |Specifies a configuration file name (full path or relative path to the running path of your Node.js application). For the content of the file, see Step 3.|
 |KNJ_ENABLE_DEEPDIVE (optional)     |"true", "True", "", "False" or not set |not set        |Enables or disables diagnostics. By default, diagnostics is disabled.|
-|KNJ_ENABLE_METHODTRACE (optional)  |"true", "True", "", "False" or not set |not set        |Enables or disables Method Trace. By default, method trace is diabled.|
+|KNJ_ENABLE_METHODTRACE (optional)  |"true", "True", "", "False" or not set |not set        |Enables or disables Method Trace. By default, method trace is disabled.|
 |KNJ_ENABLE_PROFILING (optional)    |"true", "True", "", "False" or not set |not set        |Enables or disables method profiling. By default, method profiling is disabled.|
 |KNJ_RESTCLIENT_TIMER (optional)   |"1000", "100"                          |"1000"         |Interval at which requests are sent to the sever, in milliseconds.|
-|KNJ_RESTCLIENT_MAX_RETRY(optional)|"3", "2"                               |"3"            |Specifies the retry times when a reqeust fails.                |  
+|KNJ_RESTCLIENT_MAX_RETRY(optional)|"3", "2"                               |"3"            |Specifies the retry times when a request fails.                |  
 
