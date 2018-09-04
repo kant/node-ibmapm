@@ -1,11 +1,11 @@
 {
     "name": "ibmapm",
     "main": "./index.js",
-    "version": "2.0.19",
+    "version": "2.0.20",
     "readme": "Node.js Data Collector",
     "description": "Node.js data collector for IBM BAM",
     "dependencies": {
-        "appmetrics": "^3.0.1",
+        "appmetrics": "^4.0.0",
         "log4js": "^0.6.38",
         "properties": "^1.2.1",
         "uuid": "^2.0.2",
